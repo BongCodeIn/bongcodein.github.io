@@ -4,13 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BongCode - WBCHSE Study Hub</title>
+  <title>BongCode - Learn Coding in Bengali</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <style>
     /* Hide scrollbars for clean horizontal scrolling */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
+    }
+
+    .pt-safe {
+      padding-top: max(1rem, env(safe-area-inset-top, 2rem));
     }
 
     .no-scrollbar {
@@ -30,7 +35,7 @@
   </style>
 </head>
 
-<body class="bg-white font-sans text-zinc-900 min-h-screen antialiased">
+<body class="bg-white font-sans text-zinc-900 min-h-screen antialiased overflow-x-hidden">
 
   <!-- Navbar -->
   <nav class="w-full flex items-center justify-between py-6 px-6 md:px-12 max-w-[1400px] mx-auto">
@@ -42,10 +47,11 @@
 
     <!-- Links -->
     <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#173b5e]">
-      <a href="#materials" class="hover:text-[#8dc63f] transition">Materials</a>
-      <a href="#materials" class="hover:text-[#8dc63f] transition">Question Papers</a>
-      <a href="#materials" class="hover:text-[#8dc63f] transition">Practice</a>
-      <a href="#" class="hover:text-[#8dc63f] transition flex items-center gap-1">Socials</a>
+      <a href="#materials" onclick="navToFilter('')" class="hover:text-[#8dc63f] transition">Materials</a>
+      <a href="#materials" onclick="navToFilter('Question Paper')" class="hover:text-[#8dc63f] transition">Question
+        Papers</a>
+      <a href="#materials" onclick="navToFilter('Practice')" class="hover:text-[#8dc63f] transition">Practice</a>
+      <a href="#footer" class="hover:text-[#8dc63f] transition flex items-center gap-1">Socials</a>
     </div>
 
     <!-- Right Side -->
@@ -111,48 +117,68 @@
     <h2 class="text-4xl font-black text-[#f26522]">Materials</h2>
   </div>
 
-  <main id="homeView" class="max-w-6xl mx-auto block px-4 md:px-8">
-
-    <section class="mb-14 max-w-3xl mx-auto">
-      <div class="relative group mb-4">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-          <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none"
-            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-        </div>
-        <input type="text" id="mainSearch" placeholder="Search materials, chapters, or subjects..."
-          class="w-full py-3.5 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent text-base transition-all">
+  <section id="globalSearchFilters"
+    class="mb-10 sm:mb-14 max-w-3xl mx-auto sticky top-0 z-30 bg-white/95 backdrop-blur-md pt-[max(1rem,env(safe-area-inset-top))] pb-4 px-4 -mx-4 sm:mx-auto sm:px-0 sm:static sm:bg-transparent sm:backdrop-blur-none border-b border-zinc-100 sm:border-none shadow-sm sm:shadow-none">
+    <div class="relative group mb-4">
+      <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+        <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none"
+          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
       </div>
-      
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <input type="text" id="mainSearch" placeholder="Search materials, chapters, or subjects..."
+        class="w-full py-3.5 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent text-base transition-all">
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
+      <div class="flex flex-col gap-3 w-full sm:w-auto">
         <!-- Horizontal Scrollable Filters -->
-        <div class="flex overflow-x-auto gap-2 pb-2 sm:pb-0 w-full sm:w-auto no-scrollbar items-center">
-          <button onclick="setFilter('', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-900 text-white text-sm font-semibold whitespace-nowrap transition-colors">All</button>
-          <button onclick="setFilter('Class 11', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Class 11</button>
-          <button onclick="setFilter('Class 12', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Class 12</button>
-          <button onclick="setFilter('Question Paper', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Question Papers</button>
-          <button onclick="setFilter('Practice', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Practice</button>
-          <button onclick="setFilter('Topics', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Topics</button>
+        <div class="flex overflow-x-auto gap-2 w-full no-scrollbar items-center" id="primary-filters">
+          <button onclick="toggleFilter('Class 11')"
+            class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors border border-transparent">Class
+            11</button>
+          <button onclick="toggleFilter('Class 12')"
+            class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors border border-transparent">Class
+            12</button>
+          <button onclick="toggleFilter('Syllabus')"
+            class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors border border-transparent">Syllabus</button>
+          <button onclick="toggleFilter('Question Paper')"
+            class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors border border-transparent">Question
+            Papers</button>
+          <button onclick="toggleFilter('Practice')"
+            class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors border border-transparent">Practice</button>
+          <button onclick="toggleFilter('Topics')"
+            class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors border border-transparent">Topics</button>
+          <button onclick="clearFilters()"
+            class="px-4 py-1.5 rounded-full bg-red-50 text-red-600 hover:bg-red-100 text-sm font-semibold whitespace-nowrap transition-colors hidden"
+            id="clear-filters-btn">Clear Filters</button>
         </div>
-        
-        <!-- Sorting -->
-        <div class="flex items-center shrink-0">
-          <label for="sortOrder" class="text-sm font-semibold text-zinc-500 mr-2">Sort:</label>
-          <select id="sortOrder" onchange="const q = document.getElementById('mainSearch').value; renderHome(q); if(!document.getElementById('seeAllView').classList.contains('hidden')) { renderSeeAll(document.getElementById('seeAllSearch').value); }" class="bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 py-1.5 px-3 rounded-lg outline-none cursor-pointer hover:border-zinc-300 transition-colors shadow-sm focus:ring-2 focus:ring-zinc-900">
-            <option value="default">Default</option>
-            <option value="az">A-Z</option>
-            <option value="za">Z-A</option>
-          </select>
+        <!-- Secondary Filters -->
+        <div class="flex overflow-x-auto gap-2 w-full no-scrollbar items-center hidden" id="secondary-filters">
+          <!-- Dynamically populated -->
         </div>
       </div>
-    </section>
 
+      <!-- Sorting -->
+      <div class="hidden sm:flex items-center shrink-0 mt-0">
+        <label for="sortOrder" class="text-sm font-semibold text-zinc-500 mr-2">Sort:</label>
+        <select id="sortOrder"
+          onchange="renderHome(); if(!document.getElementById('seeAllView').classList.contains('hidden')) { renderSeeAll(document.getElementById('mainSearch').value); }"
+          class="bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 py-1.5 px-3 rounded-lg outline-none cursor-pointer hover:border-zinc-300 transition-colors shadow-sm focus:ring-2 focus:ring-zinc-900">
+          <option value="default">Default</option>
+          <option value="az">A-Z</option>
+          <option value="za">Z-A</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <main id="homeView" class="max-w-6xl mx-auto block px-4 md:px-8">
     <div id="homeContainer" class="space-y-16"></div>
   </main>
 
-  <main id="seeAllView" class="max-w-6xl mx-auto hidden">
+  <main id="seeAllView" class="max-w-6xl mx-auto hidden px-4 md:px-8 min-h-[60vh]">
     <div
       class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 mt-6 gap-4 border-b border-zinc-200 pb-6">
       <button onclick="goHome()"
@@ -165,20 +191,6 @@
       <h1 id="seeAllTitle" class="text-2xl font-bold text-zinc-900 tracking-tight">Class Materials</h1>
       <div class="w-24 hidden md:block"></div>
     </div>
-
-    <section class="mb-10 max-w-2xl">
-      <div class="relative group">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-          <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none"
-            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-        </div>
-        <input type="text" id="seeAllSearch" placeholder="Filter this directory..."
-          class="w-full py-3 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm transition-all">
-      </div>
-    </section>
 
     <div id="seeAllContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
   </main>
@@ -215,19 +227,22 @@
   </section>
 
   <!-- Footer Section -->
-  <footer class="bg-zinc-50 border-t border-zinc-200 mt-12 py-12 text-center">
+  <footer id="footer" class="bg-zinc-50 border-t border-zinc-200 mt-12 py-12 text-center">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-[#8dc63f] font-bold text-xs tracking-[0.2em] uppercase mb-4">BONGCODE • COMPUTER EDUCATION</h2>
       <p class="text-zinc-500 text-sm mb-6 max-w-lg mx-auto leading-relaxed">
-        Empowering students with accessible, high-quality computer science education. We simplify complex concepts to help you succeed in your exams and beyond.
+        Empowering students with accessible, high-quality computer science education. We simplify complex concepts to
+        help you succeed in your exams and beyond.
       </p>
       <div class="flex items-center justify-center gap-6 text-sm font-semibold text-zinc-400 mb-6">
-        <a href="https://www.youtube.com/@BongCodeIn" target="_blank" class="hover:text-[#FF0000] transition">YouTube</a>
+        <a href="https://www.youtube.com/@BongCodeIn" target="_blank"
+          class="hover:text-[#FF0000] transition">YouTube</a>
         <a href="http://instagram.com/bongcode.in" target="_blank" class="hover:text-[#E1306C] transition">Instagram</a>
         <a href="guide.html" class="hover:text-zinc-900 transition">How it works</a>
       </div>
       <p class="text-zinc-400 text-xs font-semibold">
-        &copy; <script>document.write(new Date().getFullYear())</script> BongCode. All rights reserved.
+        &copy;
+        <script>document.write(new Date().getFullYear())</script> BongCode. All rights reserved.
       </p>
     </div>
   </footer>
@@ -255,19 +270,27 @@
       let isLink = false;
       let rawName = "";
       let url = "";
+      let videoUrl = null;
 
-      if (path.includes("::")) {
-        const parts = path.split("::");
+      let processPath = path;
+      if (processPath.includes("||")) {
+        const parts = processPath.split("||");
+        processPath = parts[0].trim();
+        videoUrl = parts[1].trim();
+      }
+
+      if (processPath.includes("::")) {
+        const parts = processPath.split("::");
         rawName = parts[0].trim();
         url = parts[1].trim();
         isLink = true;
-      } else if (path.startsWith("http")) {
+      } else if (processPath.startsWith("http")) {
         rawName = "Online Assessment / Quiz";
-        url = path;
+        url = processPath;
         isLink = true;
       } else {
-        rawName = path.split('/').pop().replace('.pdf', '');
-        url = 'pdfs/' + path;
+        rawName = processPath.split('/').pop().replace('.pdf', '');
+        url = 'pdfs/' + processPath;
         isLink = false;
       }
 
@@ -281,19 +304,37 @@
       if (lowerName.includes("coma") || lowerName.includes("computer application") || lowerName.includes("application")) {
         subjects.push({ title: "Computer Application (COMA)", search: "COMA Computer Application" });
       }
+
+      const isPractice = lowerName.includes("mock") || lowerName.includes("test") || lowerName.includes("practice");
+      const isQuestionPaper = lowerName.includes("pyq") || lowerName.includes("question");
+
       if (subjects.length === 0) {
-        subjects.push({ title: "Others", search: "Other" });
+        if (isPractice || isQuestionPaper) {
+          if (lowerName.match(/class[- ]?11|11th/)) {
+            subjects.push({ title: "Class 11", search: "Class 11" });
+          } else if (lowerName.match(/class[- ]?12|12th|hs|hs[- ]?20\d\d/)) {
+            subjects.push({ title: "Class 12", search: "Class 12" });
+          } else {
+            subjects.push({ title: isPractice ? "Practice Tests" : "Question Papers", search: isPractice ? "Practice Tests" : "Question Papers" });
+          }
+        } else {
+          subjects.push({ title: "Others", search: "Other" });
+        }
       }
 
       // 2. Detect Classes (Can be multiple)
       let classes = [];
-      if (lowerName.match(/class[- ]?11|11th/)) classes.push("Class 11");
-      if (lowerName.match(/class[- ]?12|12th|hs|hs[- ]?20\d\d/)) classes.push("Class 12");
-      if (lowerName.includes("pyq") || lowerName.includes("question")) classes.push("Question Papers");
-      if (lowerName.includes("mock") || lowerName.includes("test") || lowerName.includes("practice")) classes.push("Practice");
-      
+      if (isPractice) {
+        classes.push("Practice");
+      } else if (isQuestionPaper) {
+        classes.push("Question Papers");
+      } else {
+        if (lowerName.match(/class[- ]?11|11th/)) classes.push("Class 11");
+        if (lowerName.match(/class[- ]?12|12th|hs|hs[- ]?20\d\d/)) classes.push("Class 12");
+      }
+
       // Topic detection for independent topics
-      if (lowerName.includes("topic")) classes.push("Topics");
+      if (lowerName.includes("topic") && !isPractice) classes.push("Topics");
 
       // 3. Detect Semesters (Can be multiple)
       let semesters = [];
@@ -325,7 +366,7 @@
       classes.forEach(mainClass => {
         subjects.forEach(subject => {
           semesters.forEach(category => {
-            
+
             // Clean up title so COMS cards don't show "coma" and vice versa
             let cleanedTitle = displayTitle;
             if (subject.title.includes("COMS") && subjects.length > 1) {
@@ -337,6 +378,7 @@
             entries.push({
               displayTitle: cleanedTitle,
               fileName: url,
+              videoUrl,
               mainClass,
               subjectTitle: subject.title,
               category,
@@ -355,7 +397,20 @@
     // 🧠 3. SMART FUZZY SEARCH
     // ==========================================
     function fuzzySearch(query, dataList) {
-      if (!query) return dataList;
+      if (!query) return [...dataList]; // Copy to prevent sorting mutation
+
+      const lowerQuery = query.toLowerCase().trim();
+
+      // 1. Try exact substring match first (solves exact filter clicks like "Class 11")
+      const exactMatches = dataList.filter(item =>
+        item.searchString.toLowerCase().includes(lowerQuery)
+      );
+
+      // If we found exact matches, return them. Otherwise fall back to fuzzy search for typos.
+      if (exactMatches.length > 0) {
+        return exactMatches;
+      }
+
       const fuse = new Fuse(dataList, {
         keys: ['searchString'],
         threshold: 0.35,
@@ -372,9 +427,20 @@
     const seeAllView = document.getElementById("seeAllView");
     const homeContainer = document.getElementById("homeContainer");
 
-    function renderHome(query = "") {
+    function renderHome() {
+      const query = document.getElementById("mainSearch").value;
       homeContainer.innerHTML = "";
-      let filteredData = fuzzySearch(query, studyMaterials);
+
+      let filteredData = studyMaterials;
+
+      if (typeof activeFilters !== 'undefined' && activeFilters.size > 0) {
+        activeFilters.forEach(filterVal => {
+          const lowerFilter = filterVal.toLowerCase();
+          filteredData = filteredData.filter(item => item.searchString.toLowerCase().includes(lowerFilter));
+        });
+      }
+
+      filteredData = fuzzySearch(query, filteredData);
 
       const sortVal = document.getElementById("sortOrder")?.value || "default";
       if (sortVal === "az") {
@@ -396,38 +462,62 @@
         groupedData[item.mainClass][item.subjectTitle][item.category].push(item);
       });
 
-      for (const className in groupedData) {
+      const classOrder = ["Class 11", "Class 12", "Question Papers", "Practice", "Topics", "Others", "General"];
+      const sortedClasses = Object.keys(groupedData).sort((a, b) => {
+        let indexA = classOrder.indexOf(a);
+        let indexB = classOrder.indexOf(b);
+        if (indexA === -1) indexA = 999;
+        if (indexB === -1) indexB = 999;
+        return indexA - indexB;
+      });
+
+      for (const className of sortedClasses) {
+        const sectionId = `section-${className.replace(/[^a-zA-Z0-9]/g, '-')}`;
         let classHTML = `
           <div class="mb-12">
-            <div class="flex justify-between items-end border-b-2 border-zinc-900 pb-3 mb-6">
-              <h2 class="text-2xl md:text-3xl font-extrabold text-zinc-900 tracking-tight">${className}</h2>
-              <button onclick="openSeeAll('${className}')" class="flex items-center text-sm font-semibold text-zinc-600 hover:text-zinc-900 transition">
-                View All ${ICONS.arrowRight}
+            <div class="flex justify-between items-center border-b-2 border-zinc-900 pb-3 mb-6 cursor-pointer group select-none" onclick="toggleSection('${sectionId}', this)">
+              <h2 class="text-2xl md:text-3xl font-extrabold text-zinc-900 tracking-tight group-hover:text-zinc-600 transition-colors">${className}</h2>
+              <button class="text-zinc-400 group-hover:text-zinc-900 transition-colors">
+                <svg class="w-7 h-7 transition-transform duration-300 transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
             </div>
+            <div id="${sectionId}">
         `;
 
         for (const subject in groupedData[className]) {
           classHTML += `
             <div class="mb-8">
-              <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4 pl-1">${subject}</h3>
-              <div class="flex overflow-x-auto gap-5 pb-4 snap-x snap-mandatory no-scrollbar">
+              <h3 class="text-lg font-bold text-zinc-800 tracking-wide mb-6 pl-1 border-l-4 border-zinc-900 rounded-sm">${subject}</h3>
           `;
 
           for (const category in groupedData[className][subject]) {
             classHTML += `
-              <div class="snap-start shrink-0 w-[300px] md:w-[340px] bg-white border border-zinc-200 rounded-xl flex flex-col shadow-sm">
-                <div class="bg-zinc-50/50 px-4 py-3 border-b border-zinc-100 rounded-t-xl">
-                  <h4 class="font-semibold text-zinc-800 text-sm tracking-wide">${category}</h4>
+              <div class="mb-8 ml-4">
+                <div class="flex items-center justify-between mb-4 pr-2">
+                  <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-zinc-300"></span>
+                    ${category}
+                  </h4>
+                  <button onclick="openSeeAll('${className}', '${subject}', '${category}')" class="text-[11px] font-bold text-zinc-400 hover:text-zinc-800 flex items-center transition-colors">
+                    View All ${ICONS.arrowRight}
+                  </button>
                 </div>
-                <div class="p-4 flex-grow space-y-3">
+                <div class="flex overflow-x-auto gap-5 pb-4 snap-x snap-mandatory no-scrollbar">
             `;
-            groupedData[className][subject][category].forEach(item => { classHTML += generateCardHTML(item); });
+            groupedData[className][subject][category].forEach(item => {
+              classHTML += `
+                <div class="snap-start shrink-0 w-[280px] md:w-[320px]">
+                  ${generateCardHTML(item)}
+                </div>
+              `;
+            });
             classHTML += `</div></div>`;
           }
-          classHTML += `</div></div>`;
+          classHTML += `</div>`;
         }
-        classHTML += `</div>`;
+        classHTML += `</div></div>`;
         homeContainer.innerHTML += classHTML;
       }
     }
@@ -436,30 +526,53 @@
     // 📂 5. DISPLAY LOGIC ("See All" View)
     // ==========================================
     let currentSeeAllClass = "";
+    let currentSeeAllSubject = null;
+    let currentSeeAllCategory = null;
     const seeAllContainer = document.getElementById("seeAllContainer");
     const seeAllTitle = document.getElementById("seeAllTitle");
-
-    function openSeeAll(className) {
+    function openSeeAll(className, subject, category) {
       currentSeeAllClass = className;
-      document.getElementById("seeAllSearch").value = "";
+      currentSeeAllSubject = subject;
+      currentSeeAllCategory = category;
 
       homeView.classList.add("hidden");
       seeAllView.classList.remove("hidden");
-      seeAllTitle.innerText = `${className} Directory`;
+
+      if (subject && category) {
+        seeAllTitle.innerText = `${subject} - ${category}`;
+      } else {
+        seeAllTitle.innerText = `${className} Directory`;
+      }
+
       renderSeeAll();
-      window.scrollTo(0, 0);
+      document.getElementById('materials').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function goHome() {
       seeAllView.classList.add("hidden");
       homeView.classList.remove("hidden");
-      window.scrollTo(0, 0);
+      document.getElementById('materials').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function renderSeeAll(query = "") {
       seeAllContainer.innerHTML = "";
 
-      const classData = studyMaterials.filter(item => item.mainClass === currentSeeAllClass);
+      let classData = studyMaterials.filter(item => item.mainClass === currentSeeAllClass);
+
+      if (currentSeeAllSubject) {
+        classData = classData.filter(item => item.subjectTitle === currentSeeAllSubject);
+      }
+      if (currentSeeAllCategory) {
+        classData = classData.filter(item => item.category === currentSeeAllCategory);
+      }
+
+      if (typeof activeFilters !== 'undefined' && activeFilters.size > 0) {
+        activeFilters.forEach(filterVal => {
+          const lowerFilter = filterVal.toLowerCase();
+          classData = classData.filter(item => item.searchString.toLowerCase().includes(lowerFilter));
+        });
+      }
+
       let filteredData = fuzzySearch(query, classData);
 
       const sortVal = document.getElementById("sortOrder")?.value || "default";
@@ -535,8 +648,9 @@
     }
 
     function generateButtonsHTML(item) {
+      let buttonsHtml = '';
       if (item.format === "PDF") {
-        return `
+        buttonsHtml = `
           <div class="flex gap-2 w-full">
             <a href="${item.fileName}" target="_blank" class="flex-1 flex justify-center items-center bg-white border border-zinc-200 text-zinc-700 py-2 rounded-md text-xs font-bold hover:bg-zinc-50 hover:border-zinc-300 transition-all">
               ${ICONS.view} View
@@ -547,45 +661,152 @@
           </div>
         `;
       } else {
-        return `
+        buttonsHtml = `
           <a href="${item.fileName}" target="_blank" rel="noopener noreferrer" class="flex justify-center items-center w-full bg-zinc-900 text-white py-2 rounded-md text-xs font-bold hover:bg-zinc-800 transition-all shadow-sm">
             ${ICONS.external} Open Portal
           </a>
         `;
       }
+
+      if (item.videoUrl) {
+        buttonsHtml += `
+          <a href="${item.videoUrl}" target="_blank" rel="noopener noreferrer" class="flex justify-center items-center w-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 hover:text-red-700 py-2 rounded-md text-xs font-bold transition-all shadow-sm group mt-1">
+            <svg class="w-4 h-4 mr-1.5 text-red-500 group-hover:scale-110 group-hover:text-red-600 transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+            Watch on YT
+          </a>
+        `;
+      }
+
+      return `<div class="flex flex-col gap-2 w-full">${buttonsHtml}</div>`;
     }
 
     // ==========================================
     // 🎧 7. EVENT LISTENERS & UTILS
     // ==========================================
-    function setFilter(query, btnElement) {
-      document.getElementById('mainSearch').value = query;
-      renderHome(query);
+    function toggleSection(sectionId, headerElement) {
+      const section = document.getElementById(sectionId);
+      const icon = headerElement.querySelector('svg');
 
-      // Update button styling
+      if (section.classList.contains("hidden")) {
+        section.classList.remove("hidden");
+        icon.classList.remove("-rotate-90");
+      } else {
+        section.classList.add("hidden");
+        icon.classList.add("-rotate-90");
+      }
+    }
+
+    function navToFilter(filterValue) {
+      clearFilters();
+      if (filterValue) {
+        toggleFilter(filterValue);
+      }
+    }
+
+    let activeFilters = new Set();
+
+    function toggleFilter(filterValue) {
+      if (activeFilters.has(filterValue)) {
+        activeFilters.delete(filterValue);
+      } else {
+        if (filterValue === 'Class 11') {
+          activeFilters.delete('Class 12');
+          activeFilters.delete('Semester 3');
+          activeFilters.delete('Semester 4');
+        }
+        if (filterValue === 'Class 12') {
+          activeFilters.delete('Class 11');
+          activeFilters.delete('Semester 1');
+          activeFilters.delete('Semester 2');
+        }
+        activeFilters.add(filterValue);
+      }
+
+      updateSecondaryFilters();
+
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('bg-zinc-900', 'text-white');
-        btn.classList.add('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
+        const onclickAttr = btn.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/toggleFilter\('([^']+)'/);
+          if (match) {
+            const val = match[1];
+            if (activeFilters.has(val)) {
+              btn.classList.remove('bg-zinc-100', 'text-zinc-700', 'border-transparent');
+              btn.classList.add('bg-zinc-900', 'text-white', 'border-zinc-900');
+            } else {
+              btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900');
+              btn.classList.add('bg-zinc-100', 'text-zinc-700', 'border-transparent');
+            }
+          }
+        }
       });
-      btnElement.classList.remove('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
-      btnElement.classList.add('bg-zinc-900', 'text-white');
+
+      if (!document.getElementById('seeAllView').classList.contains('hidden')) {
+        renderSeeAll(document.getElementById('mainSearch').value);
+      } else {
+        renderHome();
+      }
+    }
+
+    function clearFilters() {
+      activeFilters.clear();
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900');
+        btn.classList.add('bg-zinc-100', 'text-zinc-700', 'border-transparent');
+      });
+      updateSecondaryFilters();
+      if (!document.getElementById('seeAllView').classList.contains('hidden')) {
+        renderSeeAll(document.getElementById('mainSearch').value);
+      } else {
+        renderHome();
+      }
+    }
+
+    function updateSecondaryFilters() {
+      const secondaryFiltersDiv = document.getElementById('secondary-filters');
+      const clearBtn = document.getElementById('clear-filters-btn');
+
+      if (activeFilters.size > 0) clearBtn.classList.remove('hidden');
+      else clearBtn.classList.add('hidden');
+
+      const showClass11 = activeFilters.has('Class 11');
+      const showClass12 = activeFilters.has('Class 12');
+
+      if (showClass11 || showClass12) {
+        secondaryFiltersDiv.classList.remove('hidden');
+        let html = `
+          <button onclick="toggleFilter('Computer Science')" class="filter-btn px-3 py-1 rounded-full ${activeFilters.has('Computer Science') ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-zinc-100 text-zinc-700 border-transparent'} hover:bg-zinc-200 text-xs font-semibold whitespace-nowrap transition-colors border">Computer Science</button>
+          <button onclick="toggleFilter('Computer Application')" class="filter-btn px-3 py-1 rounded-full ${activeFilters.has('Computer Application') ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-zinc-100 text-zinc-700 border-transparent'} hover:bg-zinc-200 text-xs font-semibold whitespace-nowrap transition-colors border">Computer Application</button>
+        `;
+
+        if (showClass11) {
+          html += `
+            <button onclick="toggleFilter('Semester 1')" class="filter-btn px-3 py-1 rounded-full ${activeFilters.has('Semester 1') ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-zinc-100 text-zinc-700 border-transparent'} hover:bg-zinc-200 text-xs font-semibold whitespace-nowrap transition-colors border">Semester 1</button>
+            <button onclick="toggleFilter('Semester 2')" class="filter-btn px-3 py-1 rounded-full ${activeFilters.has('Semester 2') ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-zinc-100 text-zinc-700 border-transparent'} hover:bg-zinc-200 text-xs font-semibold whitespace-nowrap transition-colors border">Semester 2</button>
+          `;
+        }
+
+        if (showClass12) {
+          html += `
+            <button onclick="toggleFilter('Semester 3')" class="filter-btn px-3 py-1 rounded-full ${activeFilters.has('Semester 3') ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-zinc-100 text-zinc-700 border-transparent'} hover:bg-zinc-200 text-xs font-semibold whitespace-nowrap transition-colors border">Semester 3</button>
+            <button onclick="toggleFilter('Semester 4')" class="filter-btn px-3 py-1 rounded-full ${activeFilters.has('Semester 4') ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-zinc-100 text-zinc-700 border-transparent'} hover:bg-zinc-200 text-xs font-semibold whitespace-nowrap transition-colors border">Semester 4</button>
+          `;
+        }
+        secondaryFiltersDiv.innerHTML = html;
+      } else {
+        secondaryFiltersDiv.classList.add('hidden');
+        ['Computer Science', 'Computer Application', 'Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'].forEach(f => activeFilters.delete(f));
+      }
     }
 
     document.getElementById("mainSearch").addEventListener("input", (e) => {
-      renderHome(e.target.value);
-      // Reset filter chips to "All" if user types manually
-      if(e.target.value === "") {
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-          btn.classList.remove('bg-zinc-900', 'text-white');
-          btn.classList.add('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
-        });
-        const allBtn = document.querySelector('.filter-btn');
-        allBtn.classList.remove('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
-        allBtn.classList.add('bg-zinc-900', 'text-white');
+      if (!document.getElementById('seeAllView').classList.contains('hidden')) {
+        renderSeeAll(e.target.value);
+      } else {
+        renderHome();
       }
     });
-    
-    document.getElementById("seeAllSearch").addEventListener("input", (e) => renderSeeAll(e.target.value));
+
     renderHome();
   </script>
 </body>
