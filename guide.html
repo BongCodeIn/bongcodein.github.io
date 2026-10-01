@@ -3,112 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF Naming Guide - BongCode</title>
+  <title>Document Routing Specification</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .glass-card { transition: all 0.2s ease-in-out; }
-    .glass-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    
+    .ms-card {
+      background: #ffffff;
+      border: 1px solid #e1dfdd;
+      border-radius: 4px;
+      box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,0.132), 0 0.3px 0.9px 0 rgba(0,0,0,0.108);
+    }
+    .ms-header { border-bottom: 1px solid #edebe9; }
+    .ms-blue { color: #0078D4; }
+    .ms-bg-blue { background-color: #0078D4; }
+    .ms-bg-blue-light { background-color: #eff6fc; }
+    .table-header { background-color: #faf9f8; }
   </style>
 </head>
-<body class="bg-zinc-50 font-sans text-zinc-900 p-4 md:p-8 min-h-screen antialiased">
+<body class="bg-[#faf9f8] text-[#323130] min-h-screen p-6 md:p-12">
+  
   <main class="max-w-4xl mx-auto">
-    
-    <div class="mb-8 mt-6">
-      <a href="index.html" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-900 font-semibold transition text-sm mb-6 inline-flex">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
-        Back to Dashboard
-      </a>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight mb-3">PDF Naming Guide 📄</h1>
-      <p class="text-zinc-600 font-medium text-base">Learn how to name your PDFs so they automatically appear in the correct Class, Semester, and Subject sections on the website.</p>
-    </div>
+    <a href="index.html" class="inline-flex items-center text-[#605e5c] hover:text-[#0078D4] font-medium text-sm mb-8 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Return to Dashboard
+    </a>
+
+    <header class="mb-10">
+      <h1 class="text-3xl font-semibold tracking-tight text-[#201f1e] mb-2">Document Routing Specification</h1>
+      <p class="text-[#605e5c] text-base">Guidelines for automated content indexing and deployment via filename parsing.</p>
+    </header>
 
     <div class="space-y-8">
       
-      <!-- Section: The Basics -->
-      <section class="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm glass-card">
-        <h2 class="text-xl font-bold text-zinc-800 mb-4 flex items-center gap-2">
-          <span class="bg-blue-100 text-blue-700 p-1.5 rounded-lg">✨</span>
-          The Magic is in the Name!
-        </h2>
-        <p class="text-zinc-600 mb-4 leading-relaxed">
-          You don't need to be a programmer to organize your PDFs. The website is smart enough to know where to put a file just by looking at its name. 
+      <!-- Section 1: Core Mechanism -->
+      <section class="ms-card p-8">
+        <h2 class="text-xl font-semibold text-[#201f1e] mb-4">1. Routing Mechanism</h2>
+        <p class="text-[#323130] leading-relaxed mb-6">
+          The system utilizes a static parsing engine to automatically categorize and route documents based on reserved keywords present in the filename. By adhering to the standard naming convention, files are indexed into the correct directories without requiring manual configuration.
         </p>
-        <div class="bg-zinc-50 rounded-lg p-4 border border-zinc-100">
-          <p class="text-sm font-semibold text-zinc-700 mb-2">Example of a good name:</p>
-          <p class="text-pink-600 font-mono text-sm bg-white p-2 rounded border border-zinc-200">Class 11 Sem 1 COMS Notes.pdf</p>
-          <p class="text-sm text-zinc-500 mt-2">Because you wrote <strong>"Class 11"</strong>, <strong>"Sem 1"</strong>, and <strong>"COMS"</strong> in the name, the website will automatically put it exactly where students expect to find it!</p>
+        <div class="ms-bg-blue-light p-4 rounded-sm border-l-4 border-[#0078D4]">
+          <p class="text-sm font-semibold text-[#201f1e] mb-1">Standard Convention</p>
+          <code class="font-mono text-sm text-[#0078D4]">[Class] [Semester] [Subject] [Description].pdf</code>
         </div>
       </section>
 
-      <!-- Section: Keywords -->
-      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Section 2: Reserved Keywords -->
+      <section class="ms-card overflow-hidden">
+        <div class="p-8 ms-header">
+          <h2 class="text-xl font-semibold text-[#201f1e]">2. Reserved Keywords Reference</h2>
+          <p class="text-[#605e5c] text-sm mt-1">Acceptable parameters for document classification.</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="table-header border-b border-[#edebe9] text-sm text-[#323130]">
+                <th class="py-3 px-8 font-semibold">Category</th>
+                <th class="py-3 px-8 font-semibold">Acceptable Keywords</th>
+                <th class="py-3 px-8 font-semibold text-[#605e5c]">Default (If Omitted)</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="border-b border-[#edebe9]">
+                <td class="py-4 px-8 font-medium text-[#201f1e]">Class Level</td>
+                <td class="py-4 px-8"><code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">Class 11</code>, <code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">Class 12</code></td>
+                <td class="py-4 px-8 text-[#605e5c]">General</td>
+              </tr>
+              <tr class="border-b border-[#edebe9]">
+                <td class="py-4 px-8 font-medium text-[#201f1e]">Semester</td>
+                <td class="py-4 px-8"><code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">Sem 1</code>, <code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">Sem 2</code>, <code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">Sem 3</code>, <code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">Sem 4</code></td>
+                <td class="py-4 px-8 text-[#605e5c]">General Resources</td>
+              </tr>
+              <tr>
+                <td class="py-4 px-8 font-medium text-[#201f1e]">Subject</td>
+                <td class="py-4 px-8"><code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">COMS</code>, <code class="bg-[#f3f2f1] px-1.5 py-0.5 rounded text-[#d13438]">COMA</code></td>
+                <td class="py-4 px-8 text-[#605e5c]">Other Subjects</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: Advanced Patterns -->
+      <section class="ms-card p-8">
+        <h2 class="text-xl font-semibold text-[#201f1e] mb-4">3. Multi-Node Routing Patterns</h2>
+        <p class="text-[#323130] leading-relaxed mb-6">
+          Multiple keywords from the same primary category can be combined within a single filename. The parsing engine executes a cross-product generation, indexing the document across all specified directories simultaneously.
+        </p>
         
-        <!-- Classes -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm glass-card">
-          <h3 class="font-bold text-zinc-800 mb-3 border-b border-zinc-100 pb-2">🏫 What Class is it for?</h3>
-          <p class="text-sm text-zinc-600 mb-3">Just type one of these anywhere in the file name:</p>
-          <ul class="space-y-2 text-sm text-zinc-700">
-            <li>• <strong>Class 11</strong></li>
-            <li>• <strong>Class 12</strong></li>
-          </ul>
-        </div>
-
-        <!-- Semesters -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm glass-card">
-          <h3 class="font-bold text-zinc-800 mb-3 border-b border-zinc-100 pb-2">📅 What Semester?</h3>
-          <p class="text-sm text-zinc-600 mb-3">Include one of these in the name:</p>
-          <ul class="space-y-2 text-sm text-zinc-700">
-            <li>• <strong>Sem 1</strong></li>
-            <li>• <strong>Sem 2</strong></li>
-            <li>• <strong>Sem 3</strong></li>
-            <li>• <strong>Sem 4</strong></li>
-          </ul>
-        </div>
-
-        <!-- Subjects -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm glass-card">
-          <h3 class="font-bold text-zinc-800 mb-3 border-b border-zinc-100 pb-2">📚 Which Subject?</h3>
-          <p class="text-sm text-zinc-600 mb-3">Type the short name of the subject:</p>
-          <ul class="space-y-2 text-sm text-zinc-700">
-            <li>• <strong>COMS</strong> (for Computer Science)</li>
-            <li>• <strong>COMA</strong> (for Computer Application)</li>
-          </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="border border-[#edebe9] rounded-sm p-5">
+            <h3 class="text-sm font-semibold text-[#201f1e] mb-2">Cross-Semester Indexing</h3>
+            <p class="text-xs text-[#605e5c] mb-3">Distributes a single file to Semesters 1 and 2.</p>
+            <code class="block text-xs bg-[#f3f2f1] text-[#201f1e] p-2 mb-3 border border-[#edebe9]">Class 11 Sem 1 Sem 2 COMS Networking.pdf</code>
+            <p class="text-xs text-[#0078D4] font-medium">Mapped to: Class 11 > Sem 1, Class 11 > Sem 2</p>
+          </div>
+          
+          <div class="border border-[#edebe9] rounded-sm p-5">
+            <h3 class="text-sm font-semibold text-[#201f1e] mb-2">Cross-Class Indexing</h3>
+            <p class="text-xs text-[#605e5c] mb-3">Distributes a single file to Classes 11 and 12.</p>
+            <code class="block text-xs bg-[#f3f2f1] text-[#201f1e] p-2 mb-3 border border-[#edebe9]">Class 11 Class 12 Sem 3 COMA Logic.pdf</code>
+            <p class="text-xs text-[#0078D4] font-medium">Mapped to: Class 11 > Sem 3, Class 12 > Sem 3</p>
+          </div>
         </div>
       </section>
 
-      <!-- Section: Multiple places at once -->
-      <section class="bg-indigo-50 border border-indigo-100 rounded-xl p-6 shadow-sm glass-card">
-        <h2 class="text-xl font-bold text-indigo-900 mb-3 flex items-center gap-2">
-          <span class="bg-indigo-200 text-indigo-800 p-1.5 rounded-lg">🚀</span>
-          Pro Tip: Putting one file in multiple places
-        </h2>
-        <p class="text-indigo-800/80 mb-4 text-sm leading-relaxed">
-          What if you have a PDF that is useful for both Semester 1 AND Semester 2? <br>
-          Just put <strong>both</strong> words in the file name!
+      <!-- Section 4: Deployment -->
+      <section class="ms-card p-8">
+        <h2 class="text-xl font-semibold text-[#201f1e] mb-4">4. Deployment Pipeline</h2>
+        <p class="text-[#323130] leading-relaxed mb-6">
+          This project is configured with a GitHub Actions Continuous Integration (CI) pipeline. Adding or modifying files within the repository automatically triggers an index rebuild and deploys updates to production.
         </p>
-        <div class="bg-white p-4 rounded-lg shadow-sm border border-indigo-100">
-          <p class="text-xs text-zinc-500 mb-1">If you name your file:</p>
-          <p class="text-pink-600 font-mono text-sm block bg-zinc-50 p-2 rounded border border-zinc-200 mb-3">Class 11 Sem 1 Sem 2 COMS Guide.pdf</p>
-          <p class="text-sm text-zinc-700 font-medium">The website will be smart enough to show it in both Semester 1 AND Semester 2!</p>
-        </div>
-      </section>
-      
-      <!-- Section: Final Important Step -->
-      <section class="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm glass-card flex items-start gap-4">
-        <div class="bg-orange-100 text-orange-600 p-3 rounded-full shrink-0">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-        </div>
-        <div>
-          <h3 class="text-lg font-bold text-zinc-800 mb-1">One Last Step: Tell the website it's there!</h3>
-          <p class="text-sm text-zinc-600 leading-relaxed mb-3">
-            Even though the website sorts things for you, it still needs to know the file exists.
-          </p>
-          <ol class="list-decimal pl-5 space-y-2 text-sm text-zinc-700 mt-3">
-            <li>Drop your newly named PDF into the <strong>pdfs</strong> folder.</li>
-            <li>Go to your main website folder and double-click the file named <strong>Update_Website.command</strong>.</li>
-            <li>A black terminal window will pop up, do its magic instantly, and tell you it's done. You can close it!</li>
-            <li>Refresh your website. Your PDF will be there!</li>
+        
+        <div class="border border-[#edebe9] bg-[#faf9f8] p-5 rounded-sm">
+          <ol class="list-decimal pl-5 space-y-3 text-sm text-[#323130]">
+            <li>Access the repository via the GitHub web interface and navigate to the <code class="bg-[#f3f2f1] px-1 text-[#d13438]">pdfs/</code> directory.</li>
+            <li>Select <strong>Add file > Upload files</strong> and upload the properly formatted document.</li>
+            <li>Select <strong>Commit changes</strong> to finalize the upload.</li>
           </ol>
+          <p class="text-xs text-[#605e5c] mt-4 pt-4 border-t border-[#edebe9]">
+            Note: The CI pipeline executes asynchronously. Please allow 15-30 seconds for changes to reflect on the live environment.
+          </p>
         </div>
       </section>
 
