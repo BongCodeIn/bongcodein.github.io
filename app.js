@@ -2,38 +2,7 @@
 // 1. MANUAL PDF REGISTRY (Add your new PDFs here)
 // ============================================================
 const pdfData = [
-  {
-    title: "Chapter 1: Evolution of Computers & Digital Logic",
-    classLevel: "Class 11",
-    subject: "Computer Science",
-    type: "Notes",
-    tags: ["hardware", "binary", "gates", "coas"],
-    filename: "pdfs/cs-class11-ch1-notes.pdf"
-  },
-  {
-    title: "Class 12 COMA MS Excel & Access Short Notes",
-    classLevel: "Class 12",
-    subject: "Computer Application",
-    type: "Notes",
-    tags: ["excel", "database", "coma", "formulas"],
-    filename: "pdfs/coma-class12-excel-notes.pdf"
-  },
-  {
-    title: "2023 WBCHSE Class 12 Computer Science Model Question Paper",
-    classLevel: "Class 12",
-    subject: "Computer Science",
-    type: "Question Paper",
-    tags: ["pyq", "exam", "2023", "questions"],
-    filename: "pdfs/cs-class12-2023-paper.pdf"
-  },
-  {
-    title: "Boolean Algebra & Combinational Circuits",
-    classLevel: "Class 11",
-    subject: "Computer Application",
-    type: "Notes",
-    tags: ["logic gates", "k map", "karnaugh", "coma"],
-    filename: "pdfs/coma-class11-boolean.pdf"
-  }
+  // Add your PDF objects here...
 ];
 
 // ============================================================

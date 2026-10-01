@@ -65,6 +65,9 @@
     <div id="seeAllContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
   </main>
 
+  <!-- Load the external list of PDFs -->
+  <script src="files.js"></script>
+
   <script>
     // ==========================================
     // 🎨 SVG ICONS LIBRARY (Professional look)
@@ -79,59 +82,66 @@
     };
 
     // ==========================================
-    // 📝 1. DATA SOURCE
-    // ==========================================
-    const myFiles = [
-      "pdfs/HS 2026 SEM-3 COMS Model Paper Part 2.pdf",
-      "pdfs/SEM-3 COMA HTML Important Tags.pdf",
-      "pdfs/SEM-4 COMS Networking Notes.pdf",
-      "pdfs/Class 11 COMA Boolean Algebra Notes.pdf",
-      "pdfs/SEM-1 COMS Important MCQs.pdf",
-      "pdfs/SEM-2 COMA Database Concepts.pdf",
-      "pdfs/General WBCHSE Syllabus 2026.pdf",
-      "https://forms.gle/logic-gates-mock-test-link" 
-    ];
-
-    // ==========================================
     // ⚙️ 2. AUTO-PARSER LOGIC (Emoji-Free)
     // ==========================================
-    const studyMaterials = myFiles.map(path => {
+    const studyMaterials = myFiles.flatMap(path => {
       const isLink = path.startsWith("http");
       const rawName = isLink ? path : path.split('/').pop().replace('.pdf', '');
       const lowerName = rawName.toLowerCase();
       
-      let subjectTitle = "Other Subjects";
-      let searchSubject = "Other";
+      // 1. Detect Subjects (Can be multiple)
+      let subjects = [];
       if (lowerName.includes("coms") || lowerName.includes("computer science")) {
-        subjectTitle = "Computer Science (COMS)";
-        searchSubject = "COMS Computer Science";
-      } else if (lowerName.includes("coma") || lowerName.includes("application")) {
-        subjectTitle = "Computer Application (COMA)";
-        searchSubject = "COMA Computer Application";
+        subjects.push({ title: "Computer Science (COMS)", search: "COMS Computer Science" });
+      }
+      if (lowerName.includes("coma") || lowerName.includes("computer application") || lowerName.includes("application")) {
+        subjects.push({ title: "Computer Application (COMA)", search: "COMA Computer Application" });
+      }
+      if (subjects.length === 0) {
+        subjects.push({ title: "Other Subjects", search: "Other" });
       }
 
-      let mainClass = "Uncategorized";
-      let category = "General References";
-
-      if (lowerName.match(/sem[- ]?1|semester 1/)) { mainClass = "Class 11"; category = "Semester 1"; }
-      else if (lowerName.match(/sem[- ]?2|semester 2/)) { mainClass = "Class 11"; category = "Semester 2"; }
-      else if (lowerName.includes("class 11")) { mainClass = "Class 11"; category = "Class 11 Resources"; }
+      // 2. Detect Classes (Can be multiple)
+      let classes = [];
+      if (lowerName.match(/class[- ]?11|11th/)) classes.push("Class 11");
+      if (lowerName.match(/class[- ]?12|12th|hs|hs[- ]?20\d\d/)) classes.push("Class 12");
       
-      else if (lowerName.match(/sem[- ]?3|semester 3/)) { mainClass = "Class 12"; category = "Semester 3"; }
-      else if (lowerName.match(/sem[- ]?4|semester 4/)) { mainClass = "Class 12"; category = "Semester 4"; }
-      else if (lowerName.includes("class 12") || lowerName.includes("hs 2026")) { mainClass = "Class 12"; category = "Class 12 Resources"; }
+      // 3. Detect Semesters (Can be multiple)
+      let semesters = [];
+      if (lowerName.match(/sem[- ]?1|semester[- ]?1/)) semesters.push("Semester 1");
+      if (lowerName.match(/sem[- ]?2|semester[- ]?2/)) semesters.push("Semester 2");
+      if (lowerName.match(/sem[- ]?3|semester[- ]?3/)) semesters.push("Semester 3");
+      if (lowerName.match(/sem[- ]?4|semester[- ]?4/)) semesters.push("Semester 4");
+
+      // Fallbacks
+      if (classes.length === 0) {
+        classes.push("General"); 
+      }
+      if (semesters.length === 0) {
+        semesters.push("General Resources");
+      }
 
       const displayTitle = isLink && !lowerName.includes("sem") ? "Online Assessment / Quiz" : rawName;
 
-      return {
-        displayTitle,
-        fileName: path,
-        mainClass,
-        subjectTitle,
-        category,
-        format: isLink ? "Link" : "PDF",
-        searchString: `${displayTitle} ${mainClass} ${category} ${searchSubject}`
-      };
+      // 4. Generate permutations for all matched categories
+      let entries = [];
+      classes.forEach(mainClass => {
+        subjects.forEach(subject => {
+          semesters.forEach(category => {
+            entries.push({
+              displayTitle,
+              fileName: isLink ? path : 'pdfs/' + path,
+              mainClass,
+              subjectTitle: subject.title,
+              category,
+              format: isLink ? "Link" : "PDF",
+              searchString: `${displayTitle} ${mainClass} ${category} ${subject.search}`
+            });
+          });
+        });
+      });
+
+      return entries;
     });
 
     // ==========================================
