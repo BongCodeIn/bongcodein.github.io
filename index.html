@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,35 +9,143 @@
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <style>
     /* Hide scrollbars for clean horizontal scrolling */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
     /* Smooth transitions for interactive elements */
-    .glass-card { transition: all 0.2s ease-in-out; }
-    .glass-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
+    .glass-card {
+      transition: all 0.2s ease-in-out;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    }
   </style>
 </head>
-<body class="bg-zinc-50 font-sans text-zinc-900 p-4 md:p-8 min-h-screen antialiased">
 
-  <main id="homeView" class="max-w-6xl mx-auto block">
-    <header class="text-center mb-12 mt-8">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-zinc-900 tracking-tight mb-3">BongCode 📚</h1>
-      <p class="text-zinc-500 font-medium text-sm md:text-base tracking-wide uppercase">WBCHSE Study Materials & Assessments</p>
-    </header>
+<body class="bg-white font-sans text-zinc-900 min-h-screen antialiased">
 
-    <section class="mb-14 max-w-2xl mx-auto">
-      <div class="relative group">
+  <!-- Navbar -->
+  <nav class="w-full flex items-center justify-between py-6 px-6 md:px-12 max-w-[1400px] mx-auto">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="BongCode Logo" class="w-8 h-8 object-contain">
+      <span class="text-xl font-bold text-[#173b5e]">BongCode</span>
+    </div>
+
+    <!-- Links -->
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#173b5e]">
+      <a href="#materials" class="hover:text-[#8dc63f] transition">Materials</a>
+      <a href="#materials" class="hover:text-[#8dc63f] transition">Question Papers</a>
+      <a href="#materials" class="hover:text-[#8dc63f] transition">Practice</a>
+      <a href="#" class="hover:text-[#8dc63f] transition flex items-center gap-1">Socials</a>
+    </div>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+      <a href="https://www.youtube.com/@BongCodeIn" target="_blank"
+        class="bg-[#FF0000] hover:bg-[#cc0000] text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 shadow-md">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .501 6.186C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        </svg>
+        YouTube
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section
+    class="max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between gap-12">
+
+    <!-- Left Text -->
+    <div class="md:w-1/2">
+      <p class="text-[#8dc63f] font-bold text-xs tracking-[0.2em] uppercase mb-6">BONGCODE • COMPUTER EDUCATION</p>
+
+      <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] font-black text-[#173b5e] leading-tight mb-3">
+        কম্পিউটার শেখা হোক সহজ,
+      </h1>
+      <h2 class="text-3xl md:text-4xl lg:text-[2.75rem] font-black text-[#f26522] mb-6">
+        সহজ বাংলায়, সহজভাবে।
+      </h2>
+
+      <p class="text-zinc-500 text-base md:text-lg mb-10 max-w-lg leading-relaxed font-medium">
+        Class 11 & 12-এর Computer Application ও Computer Science-এর ভিডিও, নোটস, প্রশ্নপত্র...
+      </p>
+
+      <div class="flex items-center gap-4">
+        <a href="#materials"
+          class="bg-[#173b5e] hover:bg-[#0f2842] text-white px-8 py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-900/20 transition hover:-translate-y-0.5">Explore
+          Materials</a>
+        <a href="https://www.youtube.com/@BongCodeIn" target="_blank"
+          class="bg-white hover:bg-zinc-50 text-[#FF0000] border border-zinc-200 px-8 py-3.5 rounded-xl text-sm font-bold shadow-sm transition hover:-translate-y-0.5 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .501 6.186C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+          Watch on YouTube
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Image Card -->
+    <div class="md:w-5/12 w-full max-w-md">
+      <div
+        class="bg-[#e6f4d5] rounded-[2.5rem] p-12 flex flex-col items-center justify-center aspect-square relative shadow-sm border border-[#d8ebc1]">
+        <div class="w-56 h-56 rounded-full overflow-hidden border-4 border-white shadow-lg mb-8 bg-white">
+          <img src="assets/creator.png" alt="Creator Photo" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Materials Header Section -->
+  <div class="w-full text-center pt-10 pb-4" id="materials">
+    <h2 class="text-4xl font-black text-[#f26522]">Materials</h2>
+  </div>
+
+  <main id="homeView" class="max-w-6xl mx-auto block px-4 md:px-8">
+
+    <section class="mb-14 max-w-3xl mx-auto">
+      <div class="relative group mb-4">
         <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-          <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none"
+            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
         </div>
-        <input 
-          type="text" 
-          id="mainSearch" 
-          placeholder="Search materials, chapters, or subjects..." 
-          class="w-full py-3.5 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent text-base transition-all"
-        >
+        <input type="text" id="mainSearch" placeholder="Search materials, chapters, or subjects..."
+          class="w-full py-3.5 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent text-base transition-all">
+      </div>
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <!-- Horizontal Scrollable Filters -->
+        <div class="flex overflow-x-auto gap-2 pb-2 sm:pb-0 w-full sm:w-auto no-scrollbar items-center">
+          <button onclick="setFilter('', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-900 text-white text-sm font-semibold whitespace-nowrap transition-colors">All</button>
+          <button onclick="setFilter('Class 11', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Class 11</button>
+          <button onclick="setFilter('Class 12', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Class 12</button>
+          <button onclick="setFilter('Question Paper', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Question Papers</button>
+          <button onclick="setFilter('Practice', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Practice</button>
+          <button onclick="setFilter('Topics', this)" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-sm font-semibold whitespace-nowrap transition-colors">Topics</button>
+        </div>
+        
+        <!-- Sorting -->
+        <div class="flex items-center shrink-0">
+          <label for="sortOrder" class="text-sm font-semibold text-zinc-500 mr-2">Sort:</label>
+          <select id="sortOrder" onchange="const q = document.getElementById('mainSearch').value; renderHome(q); if(!document.getElementById('seeAllView').classList.contains('hidden')) { renderSeeAll(document.getElementById('seeAllSearch').value); }" class="bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 py-1.5 px-3 rounded-lg outline-none cursor-pointer hover:border-zinc-300 transition-colors shadow-sm focus:ring-2 focus:ring-zinc-900">
+            <option value="default">Default</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+          </select>
+        </div>
       </div>
     </section>
 
@@ -44,9 +153,13 @@
   </main>
 
   <main id="seeAllView" class="max-w-6xl mx-auto hidden">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 mt-6 gap-4 border-b border-zinc-200 pb-6">
-      <button onclick="goHome()" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-900 font-semibold transition text-sm">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+    <div
+      class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 mt-6 gap-4 border-b border-zinc-200 pb-6">
+      <button onclick="goHome()"
+        class="flex items-center gap-2 text-zinc-500 hover:text-zinc-900 font-semibold transition text-sm">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
         Back to Dashboard
       </button>
       <h1 id="seeAllTitle" class="text-2xl font-bold text-zinc-900 tracking-tight">Class Materials</h1>
@@ -56,14 +169,68 @@
     <section class="mb-10 max-w-2xl">
       <div class="relative group">
         <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-          <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+          <svg class="w-5 h-5 text-zinc-400 group-focus-within:text-zinc-600 transition-colors" fill="none"
+            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
         </div>
-        <input type="text" id="seeAllSearch" placeholder="Filter this directory..." class="w-full py-3 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm transition-all">
+        <input type="text" id="seeAllSearch" placeholder="Filter this directory..."
+          class="w-full py-3 pl-12 pr-4 bg-white border border-zinc-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm transition-all">
       </div>
     </section>
 
     <div id="seeAllContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
   </main>
+
+  <!-- Social Links Section -->
+  <section class="max-w-md mx-auto px-4 md:px-8 pt-20 pb-16 text-center" id="socials">
+    <h2 class="text-2xl font-bold text-[#173b5e] mb-8">Connect With Us</h2>
+    <div class="flex flex-col gap-4">
+      <a href="http://instagram.com/bongcode.in" target="_blank"
+        class="w-full py-4 px-6 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-[2rem] font-bold text-[15px] hover:scale-[1.02] transition-transform shadow-md flex items-center justify-center gap-3">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg>
+        Follow on Instagram
+      </a>
+      <a href="https://facebook.com/share/1KWTvsGGwn" target="_blank"
+        class="w-full py-4 px-6 bg-[#1877F2] text-white rounded-[2rem] font-bold text-[15px] hover:scale-[1.02] transition-transform shadow-md flex items-center justify-center gap-3">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+        Join our Facebook Group
+      </a>
+      <a href="https://chat.whatsapp.com/FXvWwS6bPjI7QEz3iJnMA0" target="_blank"
+        class="w-full py-4 px-6 bg-[#25D366] text-white rounded-[2rem] font-bold text-[15px] hover:scale-[1.02] transition-transform shadow-md flex items-center justify-center gap-3">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12.031 0C5.398 0 .015 5.385.015 12.017c0 2.12.553 4.192 1.603 6.012L.03 23.97l6.104-1.602a11.97 11.97 0 005.897 1.545h.005c6.63 0 12.015-5.385 12.015-12.017C24.05 5.278 18.665 0 12.031 0zm0 21.908h-.003a9.92 9.92 0 01-5.06-1.378l-.363-.215-3.766.988.997-3.668-.236-.376a9.92 9.92 0 01-1.52-5.242c0-5.485 4.468-9.953 9.954-9.953 5.484 0 9.95 4.468 9.95 9.953 0 5.486-4.466 9.953-9.953 9.953zm5.46-7.464c-.299-.15-1.772-.876-2.046-.976-.275-.1-.475-.15-.675.15-.2.299-.775.975-.95 1.175-.175.2-.35.225-.65.075-1.341-.67-2.316-1.265-3.2-2.738-.2-.338.21-.31.782-1.455.1-.2.05-.375-.025-.525-.075-.15-.675-1.625-.925-2.225-.243-.585-.492-.505-.675-.515-.175-.01-.375-.01-.575-.01s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.11 3.22 5.11 4.515.713.308 1.269.492 1.705.63.714.226 1.365.194 1.879.117.575-.086 1.772-.725 2.022-1.425.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35z" />
+        </svg>
+        Join WhatsApp Community
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-zinc-50 border-t border-zinc-200 mt-12 py-12 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-[#8dc63f] font-bold text-xs tracking-[0.2em] uppercase mb-4">BONGCODE • COMPUTER EDUCATION</h2>
+      <p class="text-zinc-500 text-sm mb-6 max-w-lg mx-auto leading-relaxed">
+        Empowering students with accessible, high-quality computer science education. We simplify complex concepts to help you succeed in your exams and beyond.
+      </p>
+      <div class="flex items-center justify-center gap-6 text-sm font-semibold text-zinc-400 mb-6">
+        <a href="https://www.youtube.com/@BongCodeIn" target="_blank" class="hover:text-[#FF0000] transition">YouTube</a>
+        <a href="http://instagram.com/bongcode.in" target="_blank" class="hover:text-[#E1306C] transition">Instagram</a>
+        <a href="guide.html" class="hover:text-zinc-900 transition">How it works</a>
+      </div>
+      <p class="text-zinc-400 text-xs font-semibold">
+        &copy; <script>document.write(new Date().getFullYear())</script> BongCode. All rights reserved.
+      </p>
+    </div>
+  </footer>
 
   <!-- Load the external list of PDFs -->
   <script src="files.js"></script>
@@ -85,10 +252,27 @@
     // ⚙️ 2. AUTO-PARSER LOGIC (Emoji-Free)
     // ==========================================
     const studyMaterials = myFiles.flatMap(path => {
-      const isLink = path.startsWith("http");
-      const rawName = isLink ? path : path.split('/').pop().replace('.pdf', '');
+      let isLink = false;
+      let rawName = "";
+      let url = "";
+
+      if (path.includes("::")) {
+        const parts = path.split("::");
+        rawName = parts[0].trim();
+        url = parts[1].trim();
+        isLink = true;
+      } else if (path.startsWith("http")) {
+        rawName = "Online Assessment / Quiz";
+        url = path;
+        isLink = true;
+      } else {
+        rawName = path.split('/').pop().replace('.pdf', '');
+        url = 'pdfs/' + path;
+        isLink = false;
+      }
+
       const lowerName = rawName.toLowerCase();
-      
+
       // 1. Detect Subjects (Can be multiple)
       let subjects = [];
       if (lowerName.includes("coms") || lowerName.includes("computer science")) {
@@ -98,14 +282,19 @@
         subjects.push({ title: "Computer Application (COMA)", search: "COMA Computer Application" });
       }
       if (subjects.length === 0) {
-        subjects.push({ title: "Other Subjects", search: "Other" });
+        subjects.push({ title: "Others", search: "Other" });
       }
 
       // 2. Detect Classes (Can be multiple)
       let classes = [];
       if (lowerName.match(/class[- ]?11|11th/)) classes.push("Class 11");
       if (lowerName.match(/class[- ]?12|12th|hs|hs[- ]?20\d\d/)) classes.push("Class 12");
+      if (lowerName.includes("pyq") || lowerName.includes("question")) classes.push("Question Papers");
+      if (lowerName.includes("mock") || lowerName.includes("test") || lowerName.includes("practice")) classes.push("Practice");
       
+      // Topic detection for independent topics
+      if (lowerName.includes("topic")) classes.push("Topics");
+
       // 3. Detect Semesters (Can be multiple)
       let semesters = [];
       if (lowerName.match(/sem[- ]?1|semester[- ]?1/)) semesters.push("Semester 1");
@@ -115,7 +304,7 @@
 
       // Fallbacks
       if (classes.length === 0) {
-        classes.push("General"); 
+        classes.push("General");
       }
       if (semesters.length === 0) {
         semesters.push("General Resources");
@@ -129,21 +318,31 @@
       else if (lowerName.includes("pyq") || lowerName.includes("question")) docType = "Question Paper";
       else if (lowerName.includes("note")) docType = "Notes";
       else if (lowerName.includes("book")) docType = "Book";
+      else if (lowerName.includes("mock") || lowerName.includes("test") || lowerName.includes("practice")) docType = "Practice Test";
 
       // 5. Generate permutations for all matched categories
       let entries = [];
       classes.forEach(mainClass => {
         subjects.forEach(subject => {
           semesters.forEach(category => {
+            
+            // Clean up title so COMS cards don't show "coma" and vice versa
+            let cleanedTitle = displayTitle;
+            if (subject.title.includes("COMS") && subjects.length > 1) {
+              cleanedTitle = cleanedTitle.replace(/\bcoma\b/ig, "").replace(/\s+/g, " ").trim();
+            } else if (subject.title.includes("COMA") && subjects.length > 1) {
+              cleanedTitle = cleanedTitle.replace(/\bcoms\b/ig, "").replace(/\s+/g, " ").trim();
+            }
+
             entries.push({
-              displayTitle,
-              fileName: isLink ? path : 'pdfs/' + path,
+              displayTitle: cleanedTitle,
+              fileName: url,
               mainClass,
               subjectTitle: subject.title,
               category,
               docType,
               format: isLink ? "Link" : "PDF",
-              searchString: `${displayTitle} ${mainClass} ${category} ${subject.search} ${docType}`
+              searchString: `${cleanedTitle} ${mainClass} ${category} ${subject.search} ${docType}`
             });
           });
         });
@@ -172,10 +371,17 @@
     const homeView = document.getElementById("homeView");
     const seeAllView = document.getElementById("seeAllView");
     const homeContainer = document.getElementById("homeContainer");
-    
+
     function renderHome(query = "") {
-      homeContainer.innerHTML = ""; 
-      const filteredData = fuzzySearch(query, studyMaterials);
+      homeContainer.innerHTML = "";
+      let filteredData = fuzzySearch(query, studyMaterials);
+
+      const sortVal = document.getElementById("sortOrder")?.value || "default";
+      if (sortVal === "az") {
+        filteredData.sort((a, b) => a.displayTitle.localeCompare(b.displayTitle));
+      } else if (sortVal === "za") {
+        filteredData.sort((a, b) => b.displayTitle.localeCompare(a.displayTitle));
+      }
 
       if (filteredData.length === 0) {
         homeContainer.innerHTML = `<div class="text-center py-16 text-zinc-500 border border-zinc-200 border-dashed rounded-xl"><p class="text-lg font-medium">No documents match your search.</p></div>`;
@@ -196,7 +402,7 @@
             <div class="flex justify-between items-end border-b-2 border-zinc-900 pb-3 mb-6">
               <h2 class="text-2xl md:text-3xl font-extrabold text-zinc-900 tracking-tight">${className}</h2>
               <button onclick="openSeeAll('${className}')" class="flex items-center text-sm font-semibold text-zinc-600 hover:text-zinc-900 transition">
-                View Directory ${ICONS.arrowRight}
+                View All ${ICONS.arrowRight}
               </button>
             </div>
         `;
@@ -217,11 +423,11 @@
                 <div class="p-4 flex-grow space-y-3">
             `;
             groupedData[className][subject][category].forEach(item => { classHTML += generateCardHTML(item); });
-            classHTML += `</div></div>`; 
+            classHTML += `</div></div>`;
           }
-          classHTML += `</div></div>`; 
+          classHTML += `</div></div>`;
         }
-        classHTML += `</div>`; 
+        classHTML += `</div>`;
         homeContainer.innerHTML += classHTML;
       }
     }
@@ -235,8 +441,8 @@
 
     function openSeeAll(className) {
       currentSeeAllClass = className;
-      document.getElementById("seeAllSearch").value = ""; 
-      
+      document.getElementById("seeAllSearch").value = "";
+
       homeView.classList.add("hidden");
       seeAllView.classList.remove("hidden");
       seeAllTitle.innerText = `${className} Directory`;
@@ -252,9 +458,16 @@
 
     function renderSeeAll(query = "") {
       seeAllContainer.innerHTML = "";
-      
+
       const classData = studyMaterials.filter(item => item.mainClass === currentSeeAllClass);
-      const filteredData = fuzzySearch(query, classData);
+      let filteredData = fuzzySearch(query, classData);
+
+      const sortVal = document.getElementById("sortOrder")?.value || "default";
+      if (sortVal === "az") {
+        filteredData.sort((a, b) => a.displayTitle.localeCompare(b.displayTitle));
+      } else if (sortVal === "za") {
+        filteredData.sort((a, b) => b.displayTitle.localeCompare(a.displayTitle));
+      }
 
       if (filteredData.length === 0) {
         seeAllContainer.innerHTML = `<div class="col-span-full text-center py-16 text-zinc-500 border border-zinc-200 border-dashed rounded-xl"><p class="text-lg font-medium">No documents match your search.</p></div>`;
@@ -304,6 +517,7 @@
       else if (type === "Question Paper") colorClass = "bg-orange-50 text-orange-600 border-orange-200";
       else if (type === "Notes") colorClass = "bg-green-50 text-green-600 border-green-200";
       else if (type === "Book") colorClass = "bg-rose-50 text-rose-600 border-rose-200";
+      else if (type === "Practice Test") colorClass = "bg-teal-50 text-teal-700 border-teal-200";
       return `<span class="inline-block px-2 py-0.5 border ${colorClass} text-[10px] font-bold uppercase tracking-wider rounded mb-3">${type}</span>`;
     }
 
@@ -342,11 +556,38 @@
     }
 
     // ==========================================
-    // 🎧 7. EVENT LISTENERS
+    // 🎧 7. EVENT LISTENERS & UTILS
     // ==========================================
-    document.getElementById("mainSearch").addEventListener("input", (e) => renderHome(e.target.value));
+    function setFilter(query, btnElement) {
+      document.getElementById('mainSearch').value = query;
+      renderHome(query);
+
+      // Update button styling
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-zinc-900', 'text-white');
+        btn.classList.add('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
+      });
+      btnElement.classList.remove('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
+      btnElement.classList.add('bg-zinc-900', 'text-white');
+    }
+
+    document.getElementById("mainSearch").addEventListener("input", (e) => {
+      renderHome(e.target.value);
+      // Reset filter chips to "All" if user types manually
+      if(e.target.value === "") {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('bg-zinc-900', 'text-white');
+          btn.classList.add('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
+        });
+        const allBtn = document.querySelector('.filter-btn');
+        allBtn.classList.remove('bg-zinc-100', 'text-zinc-700', 'hover:bg-zinc-200');
+        allBtn.classList.add('bg-zinc-900', 'text-white');
+      }
+    });
+    
     document.getElementById("seeAllSearch").addEventListener("input", (e) => renderSeeAll(e.target.value));
     renderHome();
   </script>
 </body>
+
 </html>
